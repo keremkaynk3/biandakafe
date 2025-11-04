@@ -234,7 +234,6 @@ footer {
   </div>
 </div>
 
-<!-- Yorumlar sadece ana sayfada -->
 <div class="reviews">
   <h2>Müşteri Yorumları</h2>
   <div class="review">
@@ -302,21 +301,20 @@ function closePopup(){
   document.getElementById('popup').style.display = 'none';
 }
 
-// Tüm yorumları göster
 function showAllReviews() {
-  let allReviews = `
-    Kerem KAYNAK - 3.11.2025: Kahveler sıcaktı, beğendim.. 
-    Zeynep - 2.11.2025: UNO oynarken kahkahadan sandalyeden düştüm.
-    Ali - 1.11.2025: Splendor’da yine kaybettim ama tostlar efsane!
-    Merve - 3.11.2025: Kerem Bey tam bir efsane. Müşteriyle ilgilenmesi 10 numara.
-    Berk - 2.11.2025: Türk kahvesi falımla birlikte geldi, tutmadı ama güzeldi.
-    Yasin - 1.11.2025: UNO’da sürekli yeniliyorum, kartlar hileli galiba!
-    Ece - 3.11.2025: Monopoly’de batınca bile gülerek çıktım, ortam çok keyifli.
-    Tolga - 2.11.2025: Şarap içip Jenga oynadım, tıklım tıklım ama eğlenceliydi.
-    Naz - 1.11.2025: Mekan çok tatlı, dekorlar ayrı komik.
-    Ahmet - 3.11.2025: Kerem Bey bağırmadan kahvemi aldım, başarı!
+  const message = `
+Kerem KAYNAK - 3.11.2025: Kahveler sıcaktı, beğendim..
+Zeynep - 2.11.2025: UNO oynarken kahkahadan sandalyeden düştüm.
+Ali - 1.11.2025: Splendor’da yine kaybettim ama tostlar efsane!
+Merve - 3.11.2025: Kerem Bey tam bir efsane. Müşteriyle ilgilenmesi 10 numara.
+Berk - 2.11.2025: Türk kahvesi falımla birlikte geldi, tutmadı ama güzeldi.
+Yasin - 1.11.2025: UNO’da sürekli yeniliyorum, kartlar hileli galiba!
+Ece - 3.11.2025: Monopoly’de batınca bile gülerek çıktım, ortam çok keyifli.
+Tolga - 2.11.2025: Şarap içip Jenga oynadım, tıklım tıklım ama eğlenceliydi.
+Naz - 1.11.2025: Mekan çok tatlı, dekorlar ayrı komik.
+Ahmet - 3.11.2025: Kerem Bey bağırmadan kahvemi aldım, başarı!
   `;
-  showPopup(allReviews);
+  showPopup(message);
 }
 </script>
 </body>
