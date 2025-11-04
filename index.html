@@ -5,53 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bi'Anda Kafe</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 body {
   font-family: 'Comic Sans MS', cursive;
   background-color: #fffaf2;
   margin: 0; padding: 0; color: #333;
-  line-height: 1.6;
 }
 header {
   background-color: #ffd966; padding: 20px; font-size: 2em; font-weight: bold;
   text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 main { padding: 20px; max-width: 1000px; margin: auto; }
-section {
-  display: none; background-color: #fff; border-radius: 12px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
-  padding: 20px; margin: 10px auto;
-}
+section { display: none; background-color: #fff; border-radius: 12px; box-shadow: 0 0 8px rgba(0,0,0,0.1); padding: 20px; margin: 10px auto; }
 section.active { display: block; }
-h2 { text-align: center; color: #ff914d; font-size: 1.8em; }
+h2 { text-align: center; color: #ff914d; }
 ul { list-style: none; padding: 0; margin: 0; }
 li {
-  margin: 12px 0; padding: 12px; border-bottom: 1px dashed #ffd966;
+  margin: 10px 0; padding: 10px; border-bottom: 1px dashed #ffd966;
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 1.1em;
 }
 button {
   background-color: #ff914d; color: white; border: none; border-radius: 10px;
   cursor: pointer; transition: transform 0.1s ease, background-color 0.2s ease;
 }
 button:hover { background-color: #e67e22; transform: scale(1.05); }
-.big-btn {
-  font-size: 1.8em; padding: 18px 36px; border-radius: 15px;
-  width: 220px; text-align: center; margin: 20px auto; display: block;
-}
-.nav-btn {
-  font-size: 1.1em; padding: 10px 20px; border-radius: 8px;
-  margin: 10px auto; display: block;
-}
-footer {
-  position: fixed; bottom: 0; width: 100%;
-  background-color:#ffd966; font-style: italic; font-size: 0.9em;
-  padding: 10px; text-align: center; box-shadow: 0 -2px 8px rgba(0,0,0,0.2);
-}
+.big-btn { font-size: 2em; padding: 20px 40px; border-radius: 15px; width: 220px; text-align: center; margin: 20px auto; display: block; }
+.nav-btn { font-size: 1em; padding: 8px 16px; border-radius: 8px; margin: 5px auto; display: block; }
+footer { position: fixed; bottom: 0; width: 100%; background-color:#ffd966; font-style: italic; font-size: 0.9em; padding: 10px; text-align: center; box-shadow: 0 -2px 8px rgba(0,0,0,0.2); }
 .popup {
   position: fixed; top:50%; left:50%; transform: translate(-50%,-50%);
-  background-color:#fffbcc; border:2px solid #ffb347; border-radius:20px;
-  padding:30px; font-size:1.4em; z-index:1000; display:none;
-  max-width:90%; text-align:center;
+  background-color:#fffbcc; border:2px solid #ffb347; border-radius:20px; padding:30px;
+  font-size:1.4em; z-index:1000; display:none; max-width:90%; text-align:center;
 }
 #sepet {
   position: fixed; bottom: 70px; right: 20px;
@@ -59,31 +44,98 @@ footer {
   padding:15px; width:220px; text-align:center; display:none;
 }
 #sepet button { display:block; width:100%; margin:5px 0; }
-
 /* Responsive Ana Sayfa */
 #anasayfa div { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
-@media (max-width:767px){
-  header { font-size: 1.5em; padding: 15px; }
-  li { flex-direction: column; align-items: flex-start; font-size: 1em; }
-  .big-btn { width: 100%; font-size: 1.5em; }
-  #sepet { width: 90%; right: 5%; font-size: 1em; }
-  #yorumKutusu { width: 90%; left: 5%; font-size: 1em; }
-  .popup { font-size: 1.2em; padding: 20px; }
-}
-
+@media (max-width:767px){ #anasayfa div { flex-direction:column; } }
 /* Yorum kutusu sol alt */
 #yorumKutusu {
   position: fixed; bottom: 70px; left: 20px; width:300px;
   max-height:150px; overflow-y:auto; background:#fff3cd; border:2px solid #ffd966;
-  border-radius:12px; padding:10px; font-size:0.95em;
-  box-shadow:0 0 10px rgba(0,0,0,0.2);
+  border-radius:12px; padding:10px; font-size:0.9em; box-shadow:0 0 10px rgba(0,0,0,0.2);
   transition: max-height 0.3s ease;
 }
 #yorumKutusu.expanded { max-height:400px; }
-#yorumKutusu h4 { margin-top:0; text-align:center; color:#ff914d; font-size:1.1em; }
+#yorumKutusu h4 { margin-top:0; text-align:center; color:#ff914d; }
 .yorum-item { margin-bottom:10px; text-align:left; }
 .yorum-item .stars { color:orange; }
 li span { display:inline-block; min-width:150px; text-align:center; }
+
+/* ------------------------ */
+/* 📱 Mobil Görünüm (<=768px) */
+/* ------------------------ */
+@media (max-width: 768px) {
+  body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  header {
+    font-size: 1.8em;
+    padding: 15px;
+  }
+
+  main { padding: 10px; }
+
+  li {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+  }
+
+  li span {
+    min-width: auto;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+  }
+
+  button {
+    font-size: 1.1em;
+    padding: 12px 20px;
+    width: 80%;
+    border-radius: 12px;
+  }
+
+  .big-btn {
+    width: 90%;
+    font-size: 1.4em;
+    padding: 18px;
+  }
+
+  #sepet {
+    width: 90%;
+    right: 5%;
+    bottom: 80px;
+    font-size: 1.1em;
+  }
+
+  #sepet button {
+    font-size: 1.1em;
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  #yorumKutusu {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: 95%;
+    margin: 15px auto;
+    font-size: 1em;
+  }
+
+  footer {
+    font-size: 0.85em;
+    padding: 12px;
+    position: relative;
+  }
+
+  .popup {
+    font-size: 1.2em;
+    padding: 20px;
+  }
+}
 </style>
 </head>
 <body>
@@ -188,6 +240,7 @@ function renderYorumlar(){
                    <div class="stars">${'★'.repeat(y.stars)}</div>`;
     kısa.appendChild(div);
   });
+
   const tum=document.getElementById('yorumTumListesi'); tum.innerHTML='';
   yorumlarData.forEach(y=>{
     const li=document.createElement('li');
@@ -198,7 +251,9 @@ function renderYorumlar(){
   });
 }
 
-function yorumBuyut(){ sayfaGoster('tumYorumlar'); }
+function yorumBuyut(){
+  sayfaGoster('tumYorumlar');
+}
 
 function renderMenu(){
   const yUl=document.getElementById('yiyecekListesi'); 
@@ -258,7 +313,6 @@ function sepetBosalt(){
 
 function masaGetir(){ popupGoster("Seni bunu yapacağıma kim inandırdı?"); }
 
-// --- Başlat ---
 renderYorumlar(); renderMenu(); renderOyunlar();
 </script>
 </body>
