@@ -1,319 +1,303 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bi'Anda Kafe</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bi'Anda Kafe</title>
+  <style>
+    :root {
+      --primary: #ffcc00;
+      --accent: #ff9900;
+      --bg: #fffaf2;
+      --text: #222;
+      --radius: 16px;
+      --font: 'Poppins', sans-serif;
+    }
 
-body {
-  font-family: 'Comic Sans MS', cursive;
-  background-color: #fffaf2;
-  margin: 0; padding: 0; color: #333;
-}
-header {
-  background-color: #ffd966; padding: 20px; font-size: 2em; font-weight: bold;
-  text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-main { padding: 20px; max-width: 1000px; margin: auto; }
-section { display: none; background-color: #fff; border-radius: 12px; box-shadow: 0 0 8px rgba(0,0,0,0.1); padding: 20px; margin: 10px auto; }
-section.active { display: block; }
-h2 { text-align: center; color: #ff914d; }
-ul { list-style: none; padding: 0; margin: 0; }
-li {
-  margin: 10px 0; padding: 10px; border-bottom: 1px dashed #ffd966;
-  display: flex; justify-content: space-between; align-items: center;
-}
-button {
-  background-color: #ff914d; color: white; border: none; border-radius: 10px;
-  cursor: pointer; transition: transform 0.1s ease, background-color 0.2s ease;
-}
-button:hover { background-color: #e67e22; transform: scale(1.05); }
-.big-btn { font-size: 2em; padding: 20px 40px; border-radius: 15px; width: 220px; text-align: center; margin: 20px auto; display: block; }
-.nav-btn { font-size: 1em; padding: 8px 16px; border-radius: 8px; margin: 5px auto; display: block; }
-footer { position: fixed; bottom: 0; width: 100%; background-color:#ffd966; font-style: italic; font-size: 0.9em; padding: 10px; text-align: center; box-shadow: 0 -2px 8px rgba(0,0,0,0.2); }
-.popup {
-  position: fixed; top:50%; left:50%; transform: translate(-50%,-50%);
-  background-color:#fffbcc; border:2px solid #ffb347; border-radius:20px; padding:30px;
-  font-size:1.4em; z-index:1000; display:none; max-width:90%; text-align:center;
-}
-#sepet {
-  position: fixed; bottom: 70px; right: 20px;
-  background-color:#fff3cd; border:2px solid #ffd966; border-radius:15px;
-  padding:15px; width:220px; text-align:center; display:none;
-}
-#sepet button { display:block; width:100%; margin:5px 0; }
-/* Responsive Ana Sayfa */
-#anasayfa div { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
-@media (max-width:767px){ #anasayfa div { flex-direction:column; } }
-/* Yorum kutusu sol alt */
-#yorumKutusu {
-  position: fixed; bottom: 70px; left: 20px; width:300px;
-  max-height:150px; overflow-y:auto; background:#fff3cd; border:2px solid #ffd966;
-  border-radius:12px; padding:10px; font-size:0.9em; box-shadow:0 0 10px rgba(0,0,0,0.2);
-  transition: max-height 0.3s ease;
-}
-#yorumKutusu.expanded { max-height:400px; }
-#yorumKutusu h4 { margin-top:0; text-align:center; color:#ff914d; }
-.yorum-item { margin-bottom:10px; text-align:left; }
-.yorum-item .stars { color:orange; }
-li span { display:inline-block; min-width:150px; text-align:center; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+    }
 
-/* ------------------------ */
-/* 📱 Mobil Görünüm (<=768px) */
-/* ------------------------ */
-@media (max-width: 768px) {
-  body {
-    font-family: 'Poppins', sans-serif;
-    font-size: 18px;
-    line-height: 1.6;
-  }
+    header {
+      background-color: var(--primary);
+      padding: 15px;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      border-bottom: 3px solid var(--accent);
+    }
 
-  header {
-    font-size: 1.8em;
-    padding: 15px;
-  }
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      padding: 20px;
+    }
 
-  main { padding: 10px; }
+    .menu-section, .games-section {
+      width: 45%;
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
 
-  li {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 15px;
-  }
+    h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
 
-  li span {
-    min-width: auto;
-    margin-bottom: 8px;
-    font-size: 1.1em;
-  }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 5px;
+      border-bottom: 1px solid #eee;
+    }
 
-  button {
-    font-size: 1.1em;
-    padding: 12px 20px;
-    width: 80%;
-    border-radius: 12px;
-  }
+    .item span {
+      flex: 1;
+      text-align: left;
+    }
 
-  .big-btn {
-    width: 90%;
-    font-size: 1.4em;
-    padding: 18px;
-  }
+    .item .price {
+      text-align: right;
+      width: 90px;
+      font-weight: bold;
+    }
 
-  #sepet {
-    width: 90%;
-    right: 5%;
-    bottom: 80px;
-    font-size: 1.1em;
-  }
+    .item button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
 
-  #sepet button {
-    font-size: 1.1em;
-    padding: 14px;
-    border-radius: 12px;
-  }
+    .item button:hover {
+      background-color: #e08600;
+    }
 
-  #yorumKutusu {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    width: 95%;
-    margin: 15px auto;
-    font-size: 1em;
-  }
+    .cart {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background-color: var(--accent);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+      font-size: 1.1rem;
+    }
 
-  footer {
-    font-size: 0.85em;
-    padding: 12px;
-    position: relative;
-  }
+    .cart button {
+      margin: 5px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
 
-  .popup {
-    font-size: 1.2em;
-    padding: 20px;
-  }
-}
-</style>
+    .complete {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .clear {
+      background-color: #c62828;
+      color: white;
+    }
+
+    .reviews {
+      margin: 40px 20px;
+    }
+
+    .reviews h2 {
+      text-align: left;
+    }
+
+    .review {
+      margin-bottom: 15px;
+      background: #fff;
+      padding: 10px;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .review .meta {
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .review .stars {
+      color: #f1b400;
+      font-size: 1.1rem;
+    }
+
+    .reviews button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: var(--primary);
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 25px;
+      border-radius: var(--radius);
+      text-align: center;
+      width: 85%;
+      max-width: 400px;
+      font-size: 1.1rem;
+    }
+
+    .popup-content button {
+      margin-top: 15px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      header { font-size: 1.6rem; }
+      .container { flex-direction: column; align-items: center; padding: 10px; }
+      .menu-section, .games-section { width: 90%; }
+      .item button { font-size: 1.1rem; padding: 12px 20px; }
+      .cart { font-size: 1rem; }
+      .cart button { font-size: 1.1rem; padding: 14px 22px; }
+      body { font-size: 1.05rem; }
+      .reviews { margin-bottom: 90px; }
+    }
+  </style>
 </head>
 <body>
-<header>☕ Bi'Anda Kafe 🍰</header>
-<main>
-<section id="anasayfa" class="active">
-  <div>
-    <button class="big-btn" onclick="sayfaGoster('menu')">🍔 Menü</button>
-    <button class="big-btn" onclick="sayfaGoster('oyunlar')">🎲 Oyunlar</button>
+  <header>☕ Bi'Anda Kafe 🎲</header>
+
+  <div class="container">
+    <div class="menu-section">
+      <h2>Menü</h2>
+      <div class="item"><span>Türk Kahvesi</span><span class="price">40₺</span><button onclick="addToCart('Türk Kahvesi', 40)">Sepete Ekle</button></div>
+      <div class="item"><span>Fincan Çay</span><span class="price">30₺</span><button onclick="addToCart('Fincan Çay', 30)">Sepete Ekle</button></div>
+      <div class="item"><span>Şarap</span><span class="price">120₺</span><button onclick="addToCart('Şarap', 120)">Sepete Ekle</button></div>
+      <div class="item"><span>Tavuklu Pilav</span><span class="price">80₺</span><button onclick="addToCart('Tavuklu Pilav', 80)">Sepete Ekle</button></div>
+      <div class="item"><span>Kaşarlı Tost</span><span class="price">70₺</span><button onclick="addToCart('Kaşarlı Tost', 70)">Sepete Ekle</button></div>
+    </div>
+
+    <div class="games-section">
+      <h2>Kutu Oyunları</h2>
+      <div class="item"><span>UNO</span><span class="price">100₺</span><button onclick="addToCart('UNO', 100)">Sepete Ekle</button></div>
+      <div class="item"><span>Jenga</span><span class="price">150₺</span><button onclick="addToCart('Jenga', 150)">Sepete Ekle</button></div>
+      <div class="item"><span>Monopoly</span><span class="price">250₺</span><button onclick="addToCart('Monopoly', 250)">Sepete Ekle</button></div>
+      <div class="item"><span>Splendor</span><span class="price">300₺</span><button onclick="addToCart('Splendor', 300)">Sepete Ekle</button></div>
+      <div class="item"><span>Zeka Küpü</span><span class="price">180₺</span><button onclick="addToCart('Zeka Küpü', 180)">Sepete Ekle</button></div>
+    </div>
   </div>
-</section>
 
-<section id="menu">
-  <h2>🍽 Menü</h2>
-  <button class="big-btn" onclick="sayfaGoster('yiyecekler')">🥪 Yiyecekler</button>
-  <button class="big-btn" onclick="sayfaGoster('icecekler')">☕ İçecekler</button>
-  <button class="nav-btn" onclick="sayfaGoster('anasayfa')">⬅️ Ana Sayfa</button>
-</section>
+  <div class="reviews">
+    <h2>Müşteri Yorumları</h2>
+    <div class="review">
+      <div class="meta">Kerem KAYNAK - 3.11.2025</div>
+      <div class="stars">★★★★★</div>
+      <div class="text">Kahveler sıcaktı, beğendim. Ama siparişi yine ben aldım 😅</div>
+    </div>
+    <div class="review">
+      <div class="meta">Mehmet D. - 2.11.2025</div>
+      <div class="stars">★★★★☆</div>
+      <div class="text">UNO oynarken Kerem Bey kartları yanlış saydı ama ortam 10 numara!</div>
+    </div>
+    <button onclick="alert('Tüm yorumlar yakında eklenecek 😎')">Tümünü Görüntüle</button>
+  </div>
 
-<section id="yiyecekler">
-  <h2>🥪 Yiyecekler</h2>
-  <ul id="yiyecekListesi"></ul>
-  <button class="nav-btn" onclick="sayfaGoster('menu')">⬅️ Menüye Dön</button>
-</section>
+  <footer>Sevgilisi olanlar ve milli sporcuyum diye gezinenler giremez 🚫</footer>
 
-<section id="icecekler">
-  <h2>☕ İçecekler</h2>
-  <ul id="icecekListesi"></ul>
-  <button class="nav-btn" onclick="sayfaGoster('menu')">⬅️ Menüye Dön</button>
-</section>
+  <div class="cart">
+    <span id="cartTotal">Sepet Toplamı: 0₺</span><br />
+    <button class="complete" onclick="completeOrder()">Siparişi Tamamla</button>
+    <button class="clear" onclick="clearCart()">Sepeti Boşalt</button>
+  </div>
 
-<section id="oyunlar">
-  <h2>🎲 Oyunlar</h2>
-  <ul id="oyunListesi"></ul>
-  <button class="nav-btn" onclick="sayfaGoster('anasayfa')">⬅️ Ana Sayfa</button>
-</section>
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <p id="popupMessage"></p>
+      <button onclick="closePopup()">Tamam</button>
+    </div>
+  </div>
 
-<section id="tumYorumlar">
-  <h2>📝 Tüm Yorumlar</h2>
-  <ul id="yorumTumListesi"></ul>
-  <button class="nav-btn" onclick="sayfaGoster('anasayfa')">⬅️ Ana Sayfa</button>
-</section>
-</main>
+  <script>
+    let total = 0;
+    let hasGame = false;
 
-<footer>🚫 Sevgilisi olanlar ve milli sporcuyum diye gezinenler giremez 🚫<br>© 2025 Bi'Anda Kafe - İşletmeci: Kerem Bey 💼</footer>
+    function addToCart(item, price) {
+      total += price;
+      if (['UNO','Jenga','Monopoly','Splendor','Zeka Küpü'].includes(item)) hasGame = true;
+      document.getElementById('cartTotal').innerText = `Sepet Toplamı: ${total}₺`;
+    }
 
-<div id="popup" class="popup"><button onclick="kapatPopup()">Tamam</button></div>
+    function clearCart() {
+      showPopup("Niye doldurdun o zaman? 😜");
+      total = 0; hasGame = false;
+      document.getElementById('cartTotal').innerText = `Sepet Toplamı: 0₺`;
+    }
 
-<div id="sepet">
-  <div><b>🧺 Sepet:</b> <span id="sepetToplam">₺0</span></div>
-  <button onclick="siparisTamamla()">Siparişi Tamamla</button>
-  <button onclick="sepetBosalt()">Sepeti Boşalt</button>
-  <button onclick="masaGetir()">Masama Getir</button>
-</div>
+    function completeOrder() {
+      let msg = `Toplam Tutar: ${total}₺`;
+      if (hasGame) {
+        msg += ` + 200₺ (Ayakbastı Parası 😏)\nYeni Tutar: ${total + 200}₺`;
+      }
+      msg += `\n\nSiparişiniz hazırlanıyor, Kerem Bey bağırdığında mutfaktan alabilirsiniz.`;
+      showPopup(msg);
+      total = 0; hasGame = false;
+      document.getElementById('cartTotal').innerText = `Sepet Toplamı: 0₺`;
+    }
 
-<div id="yorumKutusu">
-  <h4>💬 Müşteri Yorumları <button onclick="yorumBuyut()">Tümünü Görüntüle</button></h4>
-  <div id="yorumKisaListesi"></div>
-</div>
+    function showPopup(message) {
+      const popup = document.getElementById('popup');
+      document.getElementById('popupMessage').innerText = message;
+      popup.style.display = 'flex';
+    }
 
-<script>
-const yorumlarData = [
-{stars:5,name:"Kerem",date:"3.11.2025",text:"Kahveler sıcaktı, beğendim.."},
-{stars:5,name:"Zeynep",date:"2.11.2025",text:"UNO oynarken kahkahadan sandalyeden düştüm."},
-{stars:5,name:"Ali",date:"1.11.2025",text:"Splendor’da yine kaybettim ama tostlar efsane!"},
-{stars:5,name:"Merve",date:"3.11.2025",text:"Kerem Bey tam bir efsane. Müşteriyle ilgilenmesi 10 numara."},
-{stars:5,name:"Berk",date:"2.11.2025",text:"Türk kahvesi falımla birlikte geldi, tutmadı ama güzeldi."},
-{stars:1,name:"Yasin",date:"1.11.2025",text:"UNO’da sürekli yeniliyorum, kartlar hileli galiba!"},
-{stars:5,name:"Ece",date:"3.11.2025",text:"Monopoly’de batınca bile gülerek çıktım, ortam çok keyifli."},
-{stars:5,name:"Tolga",date:"2.11.2025",text:"Şarap içip Jenga oynadım, tıklım tıklım ama eğlenceliydi."},
-{stars:5,name:"Naz",date:"1.11.2025",text:"Mekan çok tatlı, dekorlar ayrı komik."},
-{stars:5,name:"Ahmet",date:"3.11.2025",text:"Kerem Bey bağırmadan kahvemi aldım, başarı!"}
-];
-
-const yiyeceklerData = [
-{name:"Tavuklu Pilav",price:75},{name:"Tavuklu Dürüm",price:90},
-{name:"Kaşarlı Tost",price:60},{name:"Karışık Tost",price:70}
-];
-const iceceklerData = [
-{name:"Schweppes",price:40},{name:"Ayran",price:30},{name:"Türk Kahvesi",price:50},
-{name:"Fincan Çay",price:25},{name:"Kupa Çay",price:30},{name:"Şarap",price:120}
-];
-const oyunlarData = [
-{name:"Splendor",price:40},{name:"Monopoly",price:35},{name:"Jenga",price:25},
-{name:"UNO",price:20},{name:"Zeka Küpü",price:15}
-];
-
-let sepet=[];
-
-function sayfaGoster(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  document.getElementById('sepet').style.display=(["menu","yiyecekler","icecekler","oyunlar"].includes(id))?"block":"none";
-}
-
-function renderYorumlar(){
-  const kısa=document.getElementById('yorumKisaListesi'); kısa.innerHTML='';
-  yorumlarData.slice(0,2).forEach(y=>{
-    const div=document.createElement('div'); div.className='yorum-item';
-    div.innerHTML=`<div class="yorum-header">${y.name} (${y.date})</div>
-                   <div class="yorum-text">${y.text}</div>
-                   <div class="stars">${'★'.repeat(y.stars)}</div>`;
-    kısa.appendChild(div);
-  });
-
-  const tum=document.getElementById('yorumTumListesi'); tum.innerHTML='';
-  yorumlarData.forEach(y=>{
-    const li=document.createElement('li');
-    li.innerHTML=`<div class="yorum-header">${y.name} (${y.date})</div>
-                  <div class="yorum-text">${y.text}</div>
-                  <div class="stars">${'★'.repeat(y.stars)}</div>`;
-    tum.appendChild(li);
-  });
-}
-
-function yorumBuyut(){
-  sayfaGoster('tumYorumlar');
-}
-
-function renderMenu(){
-  const yUl=document.getElementById('yiyecekListesi'); 
-  yiyeceklerData.forEach(y=>{
-    let fiyat = y.price*2;
-    const li=document.createElement('li');
-    li.innerHTML=`<span>${y.name}</span><span>₺${fiyat}</span><button onclick="sepeteEkle('${y.name}',${fiyat})">Sepete Ekle</button>`;
-    yUl.appendChild(li);
-  });
-  const iUl=document.getElementById('icecekListesi'); 
-  iceceklerData.forEach(i=>{
-    let fiyat = i.price*2;
-    const li=document.createElement('li');
-    li.innerHTML=`<span>${i.name}</span><span>₺${fiyat}</span><button onclick="sepeteEkle('${i.name}',${fiyat})">Sepete Ekle</button>`;
-    iUl.appendChild(li);
-  });
-}
-
-function renderOyunlar(){
-  const ul=document.getElementById('oyunListesi'); 
-  oyunlarData.forEach(o=>{
-    let fiyat=o.price*2;
-    const li=document.createElement('li');
-    li.innerHTML=`<span>${o.name}</span><span>₺${fiyat}</span><button onclick="sepeteEkle('${o.name}',${fiyat},true)">Sepete Ekle</button>`;
-    ul.appendChild(li);
-  });
-}
-
-function sepeteEkle(u,p,isOyun=false){
-  sepet.push({urun:u,fiyat:p,isOyun:isOyun}); sepetGuncelle(); 
-  popupGoster(`"${u}" sepete eklendi! 🛒`);
-}
-
-function sepetGuncelle(){ 
-  let toplam=sepet.reduce((a,i)=>a+i.fiyat,0);
-  document.getElementById('sepetToplam').textContent=`₺${toplam}`;
-}
-
-function popupGoster(m){ const p=document.getElementById('popup'); p.innerHTML=`${m}<br><button onclick="kapatPopup()">Tamam</button>`; p.style.display='block'; }
-function kapatPopup(){ document.getElementById('popup').style.display='none'; }
-
-function siparisTamamla(){ 
-  if(sepet.length===0){ popupGoster("Sepet boş 😅"); return;}
-  let toplam=sepet.reduce((a,i)=>a+i.fiyat,0);
-  let oyunVar=sepet.some(x=>x.isOyun);
-  let ekstraMesaj='';
-  if(oyunVar){ toplam+=200; ekstraMesaj='(200 Ayakbastı Parası :P)'; }
-  popupGoster(`Siparişinizin toplam tutarı: ₺${toplam}<br>${ekstraMesaj}<br>Tamam'a basınca hazırlanıyor!`); 
-  sepet=[]; sepetGuncelle();
-}
-
-function sepetBosalt(){ 
-  if(sepet.length===0){popupGoster("Zaten boş 🫠"); return;} 
-  sepet=[]; sepetGuncelle(); 
-  popupGoster("Niye doldurdun o zaman? 🤨"); 
-}
-
-function masaGetir(){ popupGoster("Seni bunu yapacağıma kim inandırdı?"); }
-
-renderYorumlar(); renderMenu(); renderOyunlar();
-</script>
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
