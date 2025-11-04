@@ -129,22 +129,20 @@ const oyunlar = [
   {name:"Monopoly"},
   {name:"Jenga"},
   {name:"UNO"},
-  {name:"Zeka Küpü"}
-  {name:"Lego Technic (YAKINDA)"]
+  {name:"Zeka Küpü"},
+  {name:"Lego Technic (YAKINDA)"}
 ];
 const yorumlar = [
   {stars:5,name:"Kübra",date:"3.11.2025",text:"Görükle'nin kalbinde harika bir yer burası, ayrıca yüksek fiyatlara da savaş açmışlar.."},
   {stars:5,name:"Tolga",date:"1.11.2025",text:"Splendor’da yine kaybettim ama tostlar efsane!"},
   {stars:3,name:"Nevin",date:"2.11.2025",text:"Yiyecek ve içecekler güzeldi ama sürekli yeniliyorum, kartlar hileli galiba!"},
-  {stars:5,name:"Talha",date:"3.11.2025",text:"Bu kadar oyunun her ayrıntısına nasıl hakim olabilir anlamış değilim, bu adam bir harika!"}  
-  {stars:5,name:"Yücel",date:"3.11.2025",text:"Dekorlara bayıldım, özellikle Lego setler oldukça ilgimi çekti"}
-  {stars:5,name:"Ahmet",date:"3.11.2025",text:"Kerem Bey bağırmadan kahvemi almayı başardım."}
+  {stars:5,name:"Talha",date:"3.11.2025",text:"Bu kadar oyunun her ayrıntısına nasıl hakim olabilir anlamış değilim, bu adam bir harika!"},
+  {stars:5,name:"Yücel",date:"3.11.2025",text:"Dekorlara bayıldım, özellikle Lego setler oldukça ilgimi çekti"},
+  {stars:5,name:"Ahmet",date:"3.11.2025",text:"Kerem Bey bağırmadan kahvemi almayı başardım."},
   {stars:5,name:"Fatih",date:"3.11.2025",text:"Monopoly’de batınca bile gülerek çıktım, ortam çok keyifli."},
   {stars:5,name:"Selin",date:"2.11.2025",text:"Şarap içip Jenga oynadım, tıklım tıklım ama eğlenceliydi."},
   {stars:5,name:"Naz",date:"1.11.2025",text:"Mekan çok tatlı, ayrıca sahibi de çok canayakın!"},
-  {stars:5,name:"Merve",date:"3.11.2025",text:"Kerem Bey tam bir efsane. Müşteriyle ilgilenmesi 10 numara."},
-
-
+  {stars:5,name:"Merve",date:"3.11.2025",text:"Kerem Bey tam bir efsane. Müşteriyle ilgilenmesi 10 numara."}
 ];
 
 // Sepet
@@ -185,7 +183,7 @@ function renderGames(){
 
 function renderShortReviews(){
   const s=document.getElementById('shortReviews'); s.innerHTML='';
-  yorumlar.slice(0,2).forEach(y=>{
+  yorumlar.slice(0,3).forEach(y=>{
     const div=document.createElement('div'); div.className='review';
     div.innerHTML=`<div class="meta">${y.name} - ${y.date}</div>
                    <div class="stars">${'★'.repeat(y.stars)}</div>
@@ -242,4 +240,3 @@ renderMenu(); renderGames(); renderShortReviews(); renderAllReviews();
 </script>
 </body>
 </html>
-
