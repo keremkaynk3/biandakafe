@@ -14,7 +14,7 @@
   --font: 'Poppins', sans-serif;
 }
 body { margin:0; font-family: var(--font); background-color: var(--bg); color: var(--text); min-height:100vh; display:flex; flex-direction:column;}
-header { background-color: var(--primary); padding:15px; text-align:center; font-size:1.8rem; font-weight:bold; border-bottom:3px solid var(--accent); }
+header { background-color: var(--primary); padding:15px; text-align:center; font-size:1.8rem; font-weight:bold; border-bottom:3px solid var(--accent); cursor:pointer; }
 main { flex:1; padding:20px; max-width:1000px; margin:auto; width:100%; }
 section { display:none; padding:20px; }
 section.active { display:block; }
@@ -26,10 +26,11 @@ button:hover { background-color:#e08600; }
 .item span { flex:1; text-align:left; }
 .item .price { width:90px; text-align:right; font-weight:bold; }
 footer { text-align:center; padding:10px; background:var(--primary); font-weight:bold; font-size:0.9rem; position:sticky; bottom:0; }
-.cart { position:fixed; bottom:50px; left:0; right:0; background-color:var(--accent); color:white; padding:15px; text-align:center; border-top-left-radius:var(--radius); border-top-right-radius:var(--radius); font-size:1.1rem; display:flex; flex-direction:column; align-items:center; gap:5px;}
+.cart { position:fixed; bottom:50px; left:0; right:0; background-color:var(--accent); color:white; padding:15px; text-align:center; border-top-left-radius:var(--radius); border-top-right-radius:var(--radius); font-size:1.1rem; display:flex; flex-direction:column; align-items:center; gap:5px; display:none;}
 .cart button { margin:5px; padding:12px 18px; border:none; border-radius:var(--radius); font-weight:bold; font-size:1rem; cursor:pointer; }
 .complete { background-color:#28a745; color:white; width:90%; }
 .clear { background-color:#c62828; color:white; width:90%; }
+.masaGetir { background-color:#007bff; color:white; width:90%; }
 .reviews { margin:20px 0; }
 .reviews h2 { text-align:left; }
 .review { margin-bottom:15px; background:#fff; padding:10px; border-radius:var(--radius); box-shadow:0 2px 5px rgba(0,0,0,0.05); }
@@ -45,7 +46,7 @@ footer { text-align:center; padding:10px; background:var(--primary); font-weight
 </head>
 <body>
 
-<header>☕ Bi'Anda Kafe 🎲</header>
+<header onclick="showSection('anasayfa')">☕ Bi'Anda Kafe 🎲</header>
 
 <main>
 <!-- Ana Sayfa -->
@@ -87,10 +88,11 @@ footer { text-align:center; padding:10px; background:var(--primary); font-weight
 </main>
 
 <!-- Sepet -->
-<div class="cart">
+<div class="cart" id="cartBox">
   <span id="cartTotal">Sepet Toplamı: 0₺</span>
   <button class="complete" onclick="completeOrder()">Siparişi Tamamla</button>
   <button class="clear" onclick="clearCart()">Sepeti Boşalt</button>
+  <button class="masaGetir" onclick="masaGetir()">Masama Getir</button>
 </div>
 
 <footer>Sevgilisi olanlar ve milli sporcuyum diye gezinenler giremez 🚫</footer>
@@ -139,66 +141,60 @@ let hasGame=false;
 function showSection(id){
   document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  renderCart();
+  document.getElementById('cartBox').style.display=(id==='menu'||id==='oyunlar')?'flex':'none';
 }
 
-// Menü ve içecekleri render
+// Render fonksiyonları
 function renderMenu(){
-  const yiyecekList=document.getElementById('yiyecekList');
-  yiyecekList.innerHTML='';
-  yiyecekler.forEach(y=>{
+  const ylist=document.getElementById('yiyecekList'); ylist.innerHTML='';
+  yiyecekler.forEach(i=>{
+    let fiyat=i.price*2;
     const div=document.createElement('div');
     div.className='item';
-    div.innerHTML=`<span>${y.name}</span><span class="price">${y.price*2}₺</span><button onclick="addToCart('${y.name}',${y.price*2})">Sepete Ekle</button>`;
-    yiyecekList.appendChild(div);
+    div.innerHTML=`<span>${i.name}</span><span class="price">₺${fiyat}</span><button onclick="addToCart('${i.name}',${fiyat})">Sepete Ekle</button>`;
+    ylist.appendChild(div);
   });
-  const icecekList=document.getElementById('icecekList');
-  icecekList.innerHTML='';
+  const ilist=document.getElementById('icecekList'); ilist.innerHTML='';
   icecekler.forEach(i=>{
+    let fiyat=i.price*2;
     const div=document.createElement('div');
     div.className='item';
-    div.innerHTML=`<span>${i.name}</span><span class="price">${i.price*2}₺</span><button onclick="addToCart('${i.name}',${i.price*2})">Sepete Ekle</button>`;
-    icecekList.appendChild(div);
+    div.innerHTML=`<span>${i.name}</span><span class="price">₺${fiyat}</span><button onclick="addToCart('${i.name}',${fiyat})">Sepete Ekle</button>`;
+    ilist.appendChild(div);
   });
 }
 
-// Kutu oyunlarını render
 function renderGames(){
-  const gameList=document.getElementById('gameList');
-  gameList.innerHTML='';
+  const gList=document.getElementById('gameList'); gList.innerHTML='';
   oyunlar.forEach(g=>{
     const div=document.createElement('div');
     div.className='item';
     div.innerHTML=`<span>${g.name}</span><button onclick="addToCart('${g.name}',0,true)">Sepete Ekle</button>`;
-    gameList.appendChild(div);
+    gList.appendChild(div);
   });
 }
 
-// Kısa yorumlar
 function renderShortReviews(){
-  const short=document.getElementById('shortReviews');
-  short.innerHTML='';
+  const s=document.getElementById('shortReviews'); s.innerHTML='';
   yorumlar.slice(0,2).forEach(y=>{
     const div=document.createElement('div');
     div.className='review';
     div.innerHTML=`<div class="meta">${y.name} - ${y.date}</div>
                    <div class="stars">${'★'.repeat(y.stars)}</div>
                    <div class="text">${y.text}</div>`;
-    short.appendChild(div);
+    s.appendChild(div);
   });
 }
 
-// Tüm yorumlar
 function renderAllReviews(){
-  const all=document.getElementById('allReviews');
-  all.innerHTML='';
+  const a=document.getElementById('allReviews'); a.innerHTML='';
   yorumlar.forEach(y=>{
     const div=document.createElement('div');
     div.className='review';
     div.innerHTML=`<div class="meta">${y.name} - ${y.date}</div>
-                     <div class="stars">${'★'.repeat(y.stars)}</div>
-                     <div class="text">${y.text}</div>`;
-    all.appendChild(div);
+                   <div class="stars">${'★'.repeat(y.stars)}</div>
+                   <div class="text">${y.text}</div>`;
+    a.appendChild(div);
   });
 }
 
@@ -212,28 +208,28 @@ function addToCart(name,price,isGame=false){
 
 function renderCart(){
   let total=cart.reduce((a,c)=>a+c.price,0);
-  if(hasGame) total+=200; // ayakbastı parası
-  document.getElementById('cartTotal').innerText=`Sepet Toplamı: ${total}₺ ${hasGame? "(200 Ayakbastı Parası :P)":""}`;
+  if(hasGame) total+=200;
+  document.getElementById('cartTotal').innerText=`Sepet Toplamı: ₺${total} ${hasGame?"(200 Ayakbastı Parası :P)":""}`;
 }
 
 function completeOrder(){
-  if(cart.length===0){alert('Sepet boş 😅'); return;}
-  alert(`Siparişiniz hazırlanıyor! Kerem Bey mutfaktan bağırdığında alabilirsiniz 😎`);
+  if(cart.length===0){alert("Sepet boş 😅"); return;}
+  alert("Siparişiniz hazırlanıyor! Kerem Bey mutfaktan bağırdığında alabilirsiniz 😎");
   cart=[]; hasGame=false; renderCart();
 }
 
 function clearCart(){
-  if(cart.length===0){alert('Sepet zaten boş 🫠'); return;}
+  if(cart.length===0){alert("Sepet zaten boş 🫠"); return;}
   cart=[]; hasGame=false; renderCart();
-  alert('Niye doldurdun o zaman? 🤨');
+  alert("Niye doldurdun o zaman? 🤨");
+}
+
+function masaGetir(){
+  alert("Seni bunu yapacağıma kim inandırdı?");
 }
 
 // Başlat
-renderMenu();
-renderGames();
-renderShortReviews();
-renderAllReviews();
+renderMenu(); renderGames(); renderShortReviews(); renderAllReviews();
 </script>
-
 </body>
 </html>
