@@ -36,6 +36,14 @@ footer { text-align:center; padding:10px; background:var(--primary); font-weight
 .review { margin-bottom:15px; background:#fff; padding:10px; border-radius:var(--radius); box-shadow:0 2px 5px rgba(0,0,0,0.05); }
 .review .meta { font-size:0.9rem; color:#777; }
 .review .stars { color:#f1b400; font-size:1.1rem; }
+/* Pop-up */
+#popup {
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  background:#fff3cd; color:#222; padding:20px 25px; border-radius:16px; box-shadow:0 4px 10px rgba(0,0,0,0.3);
+  display:none; z-index:1000; text-align:center;
+}
+#popup button { margin-top:10px; background:#007bff; color:white; border:none; padding:8px 16px; border-radius:12px; cursor:pointer; font-weight:bold; }
+
 @media (max-width:768px){
   .container{flex-direction:column;}
   .big-btn{width:90%; font-size:1.7rem; padding:20px;}
@@ -95,6 +103,9 @@ footer { text-align:center; padding:10px; background:var(--primary); font-weight
   <button class="masaGetir" onclick="masaGetir()">Masama Getir</button>
 </div>
 
+<!-- Pop-up -->
+<div id="popup"><span id="popupText"></span><br><button onclick="closePopup()">Tamam</button></div>
+
 <footer>Sevgilisi olanlar ve milli sporcuyum diye gezinenler giremez 🚫</footer>
 
 <script>
@@ -134,31 +145,27 @@ const yorumlar = [
 ];
 
 // Sepet
-let cart = [];
-let hasGame=false;
+let cart=[], hasGame=false;
 
-// Sayfa geçiş
+// Fonksiyonlar
 function showSection(id){
   document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.getElementById('cartBox').style.display=(id==='menu'||id==='oyunlar')?'flex':'none';
 }
 
-// Render fonksiyonları
 function renderMenu(){
   const ylist=document.getElementById('yiyecekList'); ylist.innerHTML='';
   yiyecekler.forEach(i=>{
     let fiyat=i.price*2;
-    const div=document.createElement('div');
-    div.className='item';
+    const div=document.createElement('div'); div.className='item';
     div.innerHTML=`<span>${i.name}</span><span class="price">₺${fiyat}</span><button onclick="addToCart('${i.name}',${fiyat})">Sepete Ekle</button>`;
     ylist.appendChild(div);
   });
   const ilist=document.getElementById('icecekList'); ilist.innerHTML='';
   icecekler.forEach(i=>{
     let fiyat=i.price*2;
-    const div=document.createElement('div');
-    div.className='item';
+    const div=document.createElement('div'); div.className='item';
     div.innerHTML=`<span>${i.name}</span><span class="price">₺${fiyat}</span><button onclick="addToCart('${i.name}',${fiyat})">Sepete Ekle</button>`;
     ilist.appendChild(div);
   });
@@ -167,8 +174,7 @@ function renderMenu(){
 function renderGames(){
   const gList=document.getElementById('gameList'); gList.innerHTML='';
   oyunlar.forEach(g=>{
-    const div=document.createElement('div');
-    div.className='item';
+    const div=document.createElement('div'); div.className='item';
     div.innerHTML=`<span>${g.name}</span><button onclick="addToCart('${g.name}',0,true)">Sepete Ekle</button>`;
     gList.appendChild(div);
   });
@@ -177,8 +183,7 @@ function renderGames(){
 function renderShortReviews(){
   const s=document.getElementById('shortReviews'); s.innerHTML='';
   yorumlar.slice(0,2).forEach(y=>{
-    const div=document.createElement('div');
-    div.className='review';
+    const div=document.createElement('div'); div.className='review';
     div.innerHTML=`<div class="meta">${y.name} - ${y.date}</div>
                    <div class="stars">${'★'.repeat(y.stars)}</div>
                    <div class="text">${y.text}</div>`;
@@ -189,8 +194,7 @@ function renderShortReviews(){
 function renderAllReviews(){
   const a=document.getElementById('allReviews'); a.innerHTML='';
   yorumlar.forEach(y=>{
-    const div=document.createElement('div');
-    div.className='review';
+    const div=document.createElement('div'); div.className='review';
     div.innerHTML=`<div class="meta">${y.name} - ${y.date}</div>
                    <div class="stars">${'★'.repeat(y.stars)}</div>
                    <div class="text">${y.text}</div>`;
@@ -198,35 +202,37 @@ function renderAllReviews(){
   });
 }
 
-// Sepet işlemleri
+// Sepet
 function addToCart(name,price,isGame=false){
-  cart.push({name,price,isGame});
-  if(isGame) hasGame=true;
+  cart.push({name,price,isGame}); if(isGame) hasGame=true;
   renderCart();
-  alert(`${name} sepete eklendi!`);
+  showPopup(`${name} sepete eklendi! 🛒`);
 }
 
 function renderCart(){
-  let total=cart.reduce((a,c)=>a+c.price,0);
-  if(hasGame) total+=200;
+  let total=cart.reduce((a,c)=>a+c.price,0); if(hasGame) total+=200;
   document.getElementById('cartTotal').innerText=`Sepet Toplamı: ₺${total} ${hasGame?"(200 Ayakbastı Parası :P)":""}`;
 }
 
 function completeOrder(){
-  if(cart.length===0){alert("Sepet boş 😅"); return;}
-  alert("Siparişiniz hazırlanıyor! Kerem Bey mutfaktan bağırdığında alabilirsiniz 😎");
+  if(cart.length===0){ showPopup("Sepet boş 😅"); return; }
+  showPopup("Siparişiniz hazırlanıyor! Kerem Bey mutfaktan bağırdığında alabilirsiniz 😎");
   cart=[]; hasGame=false; renderCart();
 }
 
-function clearCart(){
-  if(cart.length===0){alert("Sepet zaten boş 🫠"); return;}
+function clearCart(){ 
+  if(cart.length===0){showPopup("Sepet zaten boş 🫠"); return;}
   cart=[]; hasGame=false; renderCart();
-  alert("Niye doldurdun o zaman? 🤨");
+  showPopup("Niye doldurdun o zaman? 🤨");
 }
 
-function masaGetir(){
-  alert("Seni bunu yapacağıma kim inandırdı?");
+function masaGetir(){ showPopup("Seni bunu yapacağıma kim inandırdı?"); }
+
+// Pop-up
+function showPopup(msg){ 
+  const p=document.getElementById('popup'); document.getElementById('popupText').innerText=msg; p.style.display='block'; 
 }
+function closePopup(){ document.getElementById('popup').style.display='none'; }
 
 // Başlat
 renderMenu(); renderGames(); renderShortReviews(); renderAllReviews();
