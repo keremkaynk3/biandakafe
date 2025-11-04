@@ -57,6 +57,11 @@ footer { text-align:center; padding:10px; background:var(--primary); font-weight
   .item button{padding:12px 18px;}
   .cart button{font-size:1.1rem; padding:14px 20px;}
 }
+#yiyecekList, 
+#icecekList, 
+#gameList {
+  padding-bottom: 120px; /* Sepetin üstünde boşluk bırakır */
+}
 </style>
 </head>
 <body>
@@ -122,24 +127,23 @@ const icecekler = [
   {name:"Kupa Çay", price:30},
   {name:"Ayran", price:25},
   {name:"Kola", price:35},
-  {name:"Schweppes", price:35},
+  {name:"Schweppes", price:50},
   {name:"Türk Kahvesi", price:40},
   {name:"Şarap", price:150}
 ];
 const oyunlar = [
   {name:"Splendor"},
   {name:"Monopoly"},
-  {name:"Twister"},
   {name:"Jenga"},
   {name:"UNO"},
   {name:"Zeka Küpü"},
-  {name:"Lego Technic YapGötür (ÇOK YAKINDA)"}
+  {name:"Lego Technic (YAKINDA)"}
 ];
 const yorumlar = [
   {stars:5,name:"Kübra",date:"3.11.2025",text:"Görükle'nin kalbinde harika bir yer burası, ayrıca yüksek fiyatlara da savaş açmışlar.."},
   {stars:5,name:"Tolga",date:"1.11.2025",text:"Splendor’da yine kaybettim ama tostlar efsane!"},
   {stars:3,name:"Nevin",date:"2.11.2025",text:"Yiyecek ve içecekler güzeldi ama sürekli yeniliyorum, kartlar hileli galiba!"},
-  {stars:5,name:"Talha",date:"3.11.2025",text:"Bu kadar oyunun her ayrıntısına nasıl hakim olabilir anlamış değilim, adam bir harika!"},
+  {stars:5,name:"Talha",date:"3.11.2025",text:"Bu kadar oyunun her ayrıntısına nasıl hakim olabilir anlamış değilim, bu adam bir harika!"},
   {stars:5,name:"Yücel",date:"3.11.2025",text:"Dekorlara bayıldım, özellikle Lego setler oldukça ilgimi çekti"},
   {stars:5,name:"Ahmet",date:"3.11.2025",text:"Kerem Bey bağırmadan kahvemi almayı başardım."},
   {stars:5,name:"Fatih",date:"3.11.2025",text:"Monopoly’de batınca bile gülerek çıktım, ortam çok keyifli."},
